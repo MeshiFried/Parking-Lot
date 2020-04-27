@@ -7,14 +7,14 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.parking.production.ParkingLot;
-import com.parking.production.Ticket;
+import com.parking.production.ITicket;
 
 import org.junit.Assert;
 
 public class ParkingLotRulesTest {
 
 	@Mock
-	Ticket ticket;
+	ITicket ticket;
 	
 	ParkingLot parkingLot;
 	
@@ -151,6 +151,16 @@ public class ParkingLotRulesTest {
 		Mockito.when(ticket.getDays()).thenReturn(14);
 		Mockito.when(ticket.getMinutes()).thenReturn(0);
 		Mockito.when(ticket.getHours()).thenReturn(0);
+		int actualCharge = parkingLot.getCharges(ticket);
+		Assert.assertEquals(expectedCharge, actualCharge );
+	}
+	
+	@Test
+	public void test13Days4Hours6Minutes() {
+		expectedCharge = 180;
+		Mockito.when(ticket.getDays()).thenReturn(13);
+		Mockito.when(ticket.getMinutes()).thenReturn(6);
+		Mockito.when(ticket.getHours()).thenReturn(4);
 		int actualCharge = parkingLot.getCharges(ticket);
 		Assert.assertEquals(expectedCharge, actualCharge );
 	}
